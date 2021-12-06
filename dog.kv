@@ -1,0 +1,50 @@
+<main>:
+	cam: cam 
+
+	GridLayout:
+		size: root.width, root.height
+		cols:1
+
+		Camera:
+			id: cam
+			resolution: 500, 500
+
+		GridLayout:
+			cols:2
+
+			Button:
+				text: 'take photo'
+				on_press: root.take_photo()
+
+			Button:
+				text: 'explore files'
+				on_release: 
+					app.root.current = 'explorer'
+					root.manager.transition.direction = 'left'
+
+<explorer>:
+	id: exp
+	filechooser: filechooser
+
+	GridLayout:
+		size: root.width, root.height
+		cols:1
+
+		FileChooserIconView:
+			id: filechooser
+			on_selection: exp.selected(filechooser.selection)
+
+		GridLayout:
+			cols: 2
+
+			Button:
+				text: 'back'
+				on_release: 
+					app.root.current = 'main'
+					root.manager.transition.direction = 'right'
+
+			Button:
+				text: 'visualize'
+				on_release: 
+					app.root.current = 'visualization'
+					root.manager.transition.direction = 'left'
